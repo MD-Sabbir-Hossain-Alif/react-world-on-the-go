@@ -9,7 +9,7 @@ const Countries = ({ countriesPromise }) => {
     return (
         <div>
             <h1>In the Countries: {countries.length}</h1>
-
+            <h2>Total Country Visited: </h2>
             <div className="countries">
                 {countries.map((country) => (
                     <Country

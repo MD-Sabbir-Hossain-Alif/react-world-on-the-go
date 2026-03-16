@@ -1,17 +1,18 @@
-import React from "react";
+import { useState } from "react";
+import "./country.css";
 
 const Country = ({ country }) => {
     // console.log(country);
-    const cardStyle = {
-        padding: "10px",
-        border: "1px solid royalblue",
-        borderRadius: "6px",
-        textAlign: "center",
+
+    const [visited, setVisited] = useState(false);
+
+    const handleVisited = () => {
+        setVisited(!visited);
     };
     // const languages = Object.values(country.languages.languages).join(", ");
     const currencies = Object.values(country.currencies.currencies || {});
     return (
-        <div style={cardStyle}>
+        <div className={visited ? "country country-visited" : "country"}>
             <img src={country.flags.flags.png} alt={country.flags.flags.alt} />
             <div
                 style={{
@@ -19,8 +20,10 @@ const Country = ({ country }) => {
                 }}
             >
                 <hr style={{ border: "1px solid gray" }} />
-                <h2>{country.name.common}</h2>
-                <h3>Official Name: {country.name.official}</h3>
+                <h2>
+                    {country.name.common}: {country.name.official}
+                </h2>
+
                 <p>
                     Population: {country.population.population}{" "}
                     {country.population.population > 1000000
@@ -35,7 +38,9 @@ const Country = ({ country }) => {
                     {currencies.map((c) => `${c.name}(${c.symbol})`).join(", ")}
                 </p>
                 <br />
-                <button>Not Visited</button>
+                <button onClick={handleVisited}>
+                    {visited ? "Visited" : "Not Visited"}
+                </button>
             </div>
         </div>
     );
