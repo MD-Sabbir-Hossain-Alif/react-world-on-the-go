@@ -1,19 +1,31 @@
 import { useState } from "react";
 import "./country.css";
 
-const Country = ({ country }) => {
+const Country = ({ country, handleVisitedCountry, handleVisitedFlag }) => {
     // console.log(country);
 
     const [visited, setVisited] = useState(false);
 
     const handleVisited = () => {
+        // if (visited) {
+        //   setVisited(false)
+        // } else{
+        //   setVisited(true)
+        // }
+
+        // setVisited(visited ? false : true)
+
         setVisited(!visited);
+        handleVisitedCountry(country);
     };
     // const languages = Object.values(country.languages.languages).join(", ");
     const currencies = Object.values(country.currencies.currencies || {});
     return (
         <div className={visited ? "country country-visited" : "country"}>
-            <img src={country.flags.flags.png} alt={country.flags.flags.alt} />
+            <img
+                src={country?.flags?.flags?.png}
+                alt={country.flags.flags.alt}
+            />
             <div
                 style={{
                     textAlign: "left",
@@ -40,6 +52,13 @@ const Country = ({ country }) => {
                 <br />
                 <button onClick={handleVisited}>
                     {visited ? "Visited" : "Not Visited"}
+                </button>
+                <button
+                    onClick={() => {
+                        handleVisitedFlag(country?.flags?.flags?.png);
+                    }}
+                >
+                    Add Visited Flag
                 </button>
             </div>
         </div>
